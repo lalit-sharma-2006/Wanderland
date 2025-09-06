@@ -22,6 +22,8 @@ const User = require("./models/user.js");
 const listingRoute = require('./routes/listing.js');
 const reviewRoute = require('./routes/review.js');
 const userRoute = require('./routes/user.js');
+const wrapAsync = require('./utils/wrapAsync.js');
+const Listing = require('./models/listing.js');
 
 
 
@@ -70,13 +72,7 @@ const sessionOption=session({secret:process.env.SECRET,
   }
 });
 
-//home route
-// app.get('/', (req, res) => {
-//     // res.cookie("greet","good morning",{signed:true})
-//     // // res.cookie("hello","world",{signed:true}) 
-//     //    res.send("send same cookie")
-//     res.send("At Home");
-// });
+
 
 
 app.use(sessionOption);
@@ -94,6 +90,15 @@ app.use((req,res,next)=>{
   res.locals.curUser=req.user || null;
   next();
 })
+
+// home route
+app.get('/',wrapAsync( async(req, res) => {
+  const searchQuery = req.query.q || '';
+  const allListings = await Listing.find({
+  title: { $regex: searchQuery, $options: 'i' }
+});
+  res.render("listings/index.ejs", { allListings,searchQuery });
+}));
 
 app.get("/userdemo",async(req,res,)=>{
   let fakeUser = new User({
