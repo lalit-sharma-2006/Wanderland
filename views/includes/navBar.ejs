@@ -18,6 +18,39 @@
      padding: 0.5rem 3rem 0.5rem 3rem;
      font-size: 1rem;
   }
+  
+  /* ✅ Add background when menu is collapsed */
+@media (max-width: 576px) {
+  .navbar-collapse {
+    background: #fff; /* white background */
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+  }
+
+  .navbar-collapse .nav-link {
+    display: block;
+    padding: 8px 0;
+    color: #333;
+  }
+
+  .navbar-collapse .nav-link:hover {
+    background-color: #f8f9fa;
+    border-radius: 5px;
+  }
+
+  /* ✅ Make search bar full width on mobile */
+  .search-inp {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+
+  .search-btn {
+    width: 100%;
+    border-radius: 25px;
+  }
+}
+
 </style>
 
 <nav class="navbar navbar-expand-sm bg-body-light border-bottom sticky-top">
