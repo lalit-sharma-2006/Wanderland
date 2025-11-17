@@ -56,11 +56,11 @@ const store = mongoStore.create({
     secret:process.env.SECRET,
   },
   touchAfter:24*3600,
-})
+});
 
 store.on("error",()=>{
   console.log("ERROR IN MONGO SESSION STORE",err);
-})
+});
 
 const sessionOption=session({secret:process.env.SECRET,
   store,
