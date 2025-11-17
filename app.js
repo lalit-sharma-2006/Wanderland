@@ -39,7 +39,7 @@ main()
   });
 
 async function main () {
-  await mongoose.connect(dbUrl);
+  await mongoose.connect(dbUrl,{ssl:true});
 };
 
 app.set('view engine', 'ejs')
@@ -60,7 +60,7 @@ const store = mongoStore.create({
 
 store.on("error",()=>{
   console.log("ERROR IN MONGO SESSION STORE",err);
-});
+})
 
 const sessionOption=session({secret:process.env.SECRET,
   store,
