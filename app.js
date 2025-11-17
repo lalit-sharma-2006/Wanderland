@@ -39,7 +39,7 @@ main()
   });
 
 async function main () {
-  await mongoose.connect(dbUrl,{ssl:true});
+  await mongoose.connect(dbUrl);
 };
 
 app.set('view engine', 'ejs')
@@ -58,7 +58,7 @@ const store = mongoStore.create({
   touchAfter:24*3600,
 });
 
-store.on("error",()=>{
+store.on("error",(err)=>{
   console.log("ERROR IN MONGO SESSION STORE",err);
 })
 
@@ -85,8 +85,8 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.use((req,res,next)=>{
-  res.locals.success=req.flash("success");
-  res.locals.error=req.flash("error");
+  res.locals.success=req.flash("success") || [];
+  res.locals.error=req.flash("error") || [];
   res.locals.curUser=req.user || null;
   next();
 })
