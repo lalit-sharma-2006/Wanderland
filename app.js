@@ -39,11 +39,7 @@ main()
   });
 
 async function main () {
-  await mongoose.connect(dbUrl ,{
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  ssl: true,
-  });
+  await mongoose.connect(dbUrl);
 };
 
 app.set('view engine', 'ejs')
@@ -62,7 +58,7 @@ const store = mongoStore.create({
   touchAfter:24*3600,
 })
 
-store.on("error",(err)=>{
+store.on("error",()=>{
   console.log("ERROR IN MONGO SESSION STORE",err);
 })
 
